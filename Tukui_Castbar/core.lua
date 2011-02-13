@@ -1,10 +1,12 @@
 -- Standalone Castbar for Tukui by Krevlorne @ EU-Ulduar
 -- Credits to Tukz, Syne, Elv22 and all other great people of the Tukui community.
 
-if ( TukuiUF ~= true and ( TukuiCF == nil or TukuiCF["unitframes"] == nil or not TukuiCF["unitframes"]["enable"] ) ) then return; end
+local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
 
-local db = TukuiCF["unitframes"]
-if (db.unitcastbar ~= true) then return; end
+if ( TukuiUF ~= true and ( C == nil or C["unitframes"] == nil or not C["unitframes"]["enable"] ) ) then return; end
+
+--local db = TukuiCF["unitframes"]
+if (C["unitframes"].unitcastbar ~= true) then return; end
 
 local addon, ns=...
 config = ns.config
@@ -15,9 +17,9 @@ local function placeCastbar(unit)
     local castbarpanel = nil
     
     if (unit == "player") then
-        castbar = oUF_Tukz_player_Castbar
+        castbar = TukuiPlayerCastBar
     else
-        castbar = oUF_Tukz_target_Castbar
+        castbar = TukuiTargetCastBar
      end
 
     local castbarpanel = CreateFrame("Frame", castbar:GetName().."_Panel", castbar)
@@ -39,7 +41,7 @@ local function placeCastbar(unit)
     castbar.Text:SetPoint("LEFT", castbarpanel, "LEFT", TukuiDB.Scale(4), 0)
     castbar.Text:SetTextColor(0.84, 0.75, 0.65)
 
-    if db.cbicons == true then
+    if C["unitframes"].cbicons == true then
         if unit == "player" then
             castbar.button:SetPoint("LEFT", TukuiDB.Scale(-40), 0)
         elseif unit == "target" then
@@ -48,8 +50,8 @@ local function placeCastbar(unit)
     end
     
     -- cast bar latency
-    local normTex = TukuiCF["media"].normTex;
-    if db.cblatency == true then
+    local normTex = C["media"].normTex;
+    if C["unitframes"].cblatency == true then
         castbar.safezone = castbar:CreateTexture(nil, "ARTWORK")
         castbar.safezone:SetTexture(normTex)
         castbar.safezone:SetVertexColor(0.69, 0.31, 0.31, 0.75)
@@ -57,13 +59,13 @@ local function placeCastbar(unit)
     end
 
     if (unit == "player") then
-        oUF_Tukz_player_Castbar.Castbar = castbar    
-        oUF_Tukz_player_Castbar.Castbar.Time = castbar.time
-        oUF_Tukz_player_Castbar.Castbar.Icon = castbar.icon
+        TukuiPlayerCastBar.Castbar = castbar    
+        TukuiPlayerCastBar.Castbar.Time = castbar.time
+        TukuiPlayerCastBar.Castbar.Icon = castbar.icon
     else
-        oUF_Tukz_target_Castbar.Castbar = castbar
-        oUF_Tukz_target_Castbar.Castbar.Time = castbar.time
-        oUF_Tukz_target_Castbar.Castbar.Icon = castbar.icon
+        TukuiTargetCastBar.Castbar = castbar
+        TukuiTargetCastBar.Castbar.Time = castbar.time
+        TukuiTargetCastBar.Castbar.Icon = castbar.icon
     end
 
     castbarpanel:RegisterEvent("ADDON_LOADED")
@@ -110,11 +112,11 @@ do
         local castbarpanel, castbar = nil
         
         if unit == "player" then
-            castbarpanel = oUF_Tukz_player_Castbar_Panel
-            castbar      = oUF_Tukz_player_Castbar.Castbar
+            castbarpanel = TukuiPlayerCastBar_Panel
+            castbar      = TukuiPlayerCastBar.Castbar
         elseif unit == "target" then
-            castbarpanel = oUF_Tukz_target_Castbar_Panel
-            castbar      = oUF_Tukz_target_Castbar.Castbar
+            castbarpanel = TukuiTargetCastBar_Panel
+            castbar      = TukuiTargetCastBar.Castbar
         else
             print("Cannot get panels for unit: " .. unit)
             return;
