@@ -85,11 +85,10 @@ end
 
 if (config.separateplayer) then
     placeCastbar("player")
+    table.insert(T.MoverFrames, TukuiPlayerCastBar_PanelAnchor)
 end
 
 if (config.separatetarget) then
     placeCastbar("target")
+    table.insert(T.MoverFrames, TukuiTargetCastBar_PanelAnchor)
 end
-
-table.insert(T.MoverFrames, TukuiPlayerCastBar_PanelAnchor)
-table.insert(T.MoverFrames, TukuiTargetCastBar_PanelAnchor)
