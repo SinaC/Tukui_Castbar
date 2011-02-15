@@ -42,23 +42,23 @@ local function placeCastbar(unit)
         castbarpanel:CreatePanel("Default", 250, 21, "CENTER", anchor, "CENTER", 0, 0)
     end
     
-    castbar:SetPoint("TOPLEFT", castbarpanel, TukuiDB.Scale(2), TukuiDB.Scale(-2))
-    castbar:SetPoint("BOTTOMRIGHT", castbarpanel, TukuiDB.Scale(-2), TukuiDB.Scale(2))
+    castbar:Point("TOPLEFT", castbarpanel, 2, -2)
+    castbar:Point("BOTTOMRIGHT", castbarpanel, -2, 2)
 
     castbar.time = TukuiDB.SetFontString(castbar, font1, 12)
-    castbar.time:SetPoint("RIGHT", castbarpanel, "RIGHT", TukuiDB.Scale(-4), 0)
+    castbar.time:Point("RIGHT", castbarpanel, "RIGHT", -4, 0)
     castbar.time:SetTextColor(0.84, 0.75, 0.65)
     castbar.time:SetJustifyH("RIGHT")
 
     castbar.Text = TukuiDB.SetFontString(castbar, font1, 12)
-    castbar.Text:SetPoint("LEFT", castbarpanel, "LEFT", TukuiDB.Scale(4), 0)
+    castbar.Text:Point("LEFT", castbarpanel, "LEFT", 4, 0)
     castbar.Text:SetTextColor(0.84, 0.75, 0.65)
 
     if C["unitframes"].cbicons == true then
         if unit == "player" then
-            castbar.button:SetPoint("LEFT", TukuiDB.Scale(-40), 0)
+            castbar.button:Point("LEFT", -40, 0)
         elseif unit == "target" then
-            castbar.button:SetPoint("RIGHT", TukuiDB.Scale(40), 0)
+            castbar.button:Point("RIGHT", 40, 0)
         end
     end
     
