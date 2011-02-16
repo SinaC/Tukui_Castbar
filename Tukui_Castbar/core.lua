@@ -27,7 +27,6 @@ local function placeCastbar(unit)
     anchor:SetTemplate("Default")
     anchor:SetBackdropBorderColor(1, 0, 0, 1)
     anchor:SetMovable(true)
-    anchor:SetSize(250, 21)
     anchor.text = T.SetFontString(anchor, font1, 12)
     anchor.text:SetPoint("CENTER")
     anchor.text:SetText(castbar:GetName())
@@ -35,11 +34,13 @@ local function placeCastbar(unit)
     anchor.text.Hide = function() anchor:SetAlpha(0) end
     
     if unit == "player" then
+        anchor:SetSize(config["player"]["width"], config["player"]["height"])
         anchor:SetPoint("CENTER", UIParent, "CENTER", 0, -200)
-        castbarpanel:CreatePanel("Default", 250, 21, "CENTER", anchor, "CENTER", 0, 0)
+        castbarpanel:CreatePanel("Default", config["player"]["width"], config["player"]["height"], "CENTER", anchor, "CENTER", 0, 0)
     else
+        anchor:SetSize(config["target"]["width"], config["target"]["height"])
         anchor:SetPoint("CENTER", UIParent, "CENTER", 0, -150)
-        castbarpanel:CreatePanel("Default", 250, 21, "CENTER", anchor, "CENTER", 0, 0)
+        castbarpanel:CreatePanel("Default", config["target"]["width"], config["target"]["height"], "CENTER", anchor, "CENTER", 0, 0)
     end
     
     castbar:Point("TOPLEFT", castbarpanel, 2, -2)
