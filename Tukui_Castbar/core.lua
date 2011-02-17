@@ -23,15 +23,15 @@ local function placeCastbar(unit)
 
     local castbarpanel = CreateFrame("Frame", castbar:GetName().."_Panel", castbar)
     local anchor = CreateFrame("Button", castbar:GetName().."_PanelAnchor", UIParent)
-    anchor:SetAlpha(0)
     anchor:SetTemplate("Default")
     anchor:SetBackdropBorderColor(1, 0, 0, 1)
     anchor:SetMovable(true)
     anchor.text = T.SetFontString(anchor, font1, 12)
     anchor.text:SetPoint("CENTER")
     anchor.text:SetText(castbar:GetName())
-    anchor.text.Show = function() anchor:SetAlpha(1) end
-    anchor.text.Hide = function() anchor:SetAlpha(0) end
+    anchor.text.Show = function() anchor:Show() end
+    anchor.text.Hide = function() anchor:Hide() end
+    anchor:Hide()
     
     if unit == "player" then
         anchor:SetSize(config["player"]["width"], config["player"]["height"])

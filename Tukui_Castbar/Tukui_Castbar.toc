@@ -2,7 +2,7 @@
 ## Title: |cffC495DDTukui|r |cffffd200Castbar|r
 ## Notes: Moves the castbar into a separate panel
 ## Author: Krevlorne @ EU-Ulduar
-## Version: 0.8
+## Version: 0.9
 ## RequiredDeps: Tukui
 
 config.lua
