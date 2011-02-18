@@ -17,11 +17,16 @@ local function placeCastbar(unit)
     
     if (unit == "player") then
         castbar = TukuiPlayerCastBar
-    else
+    elseif (unit == "target") then
         castbar = TukuiTargetCastBar
-     end
+    elseif (unit == "focus") then
+        castbar = TukuiFocusCastBar
+    elseif (unit == "focustarget") then
+        castbar = TukuiFocusTargetCastBar
+    end
 
     local castbarpanel = CreateFrame("Frame", castbar:GetName().."_Panel", castbar)
+    castbarpanel:CreateShadow("Default")
     local anchor = CreateFrame("Button", castbar:GetName().."_PanelAnchor", UIParent)
     anchor:SetTemplate("Default")
     anchor:SetBackdropBorderColor(1, 0, 0, 1)
@@ -37,12 +42,21 @@ local function placeCastbar(unit)
         anchor:SetSize(config["player"]["width"], config["player"]["height"])
         anchor:SetPoint("CENTER", UIParent, "CENTER", 0, -200)
         castbarpanel:CreatePanel("Default", config["player"]["width"], config["player"]["height"], "CENTER", anchor, "CENTER", 0, 0)
-    else
+    elseif (unit == "target") then
         anchor:SetSize(config["target"]["width"], config["target"]["height"])
         anchor:SetPoint("CENTER", UIParent, "CENTER", 0, -150)
         castbarpanel:CreatePanel("Default", config["target"]["width"], config["target"]["height"], "CENTER", anchor, "CENTER", 0, 0)
+    elseif (unit == "focus") then
+        anchor:SetSize(config["focus"]["width"], config["focus"]["height"])
+        anchor:SetPoint("CENTER", UIParent, "CENTER", 0, 250)
+        castbarpanel:CreatePanel("Default", config["focus"]["width"], config["focus"]["height"], "CENTER", anchor, "CENTER", 0, 0)
+    elseif (unit == "focustarget") then
+        anchor:SetSize(config["focustarget"]["width"], config["focustarget"]["height"])
+        anchor:SetPoint("CENTER", UIParent, "CENTER", 0, 210)
+        castbarpanel:CreatePanel("Default", config["focustarget"]["width"], config["focustarget"]["height"], "CENTER", anchor, "CENTER", 0, 0)
     end
     
+    castbar:ClearAllPoints()        
     castbar:Point("TOPLEFT", castbarpanel, 2, -2)
     castbar:Point("BOTTOMRIGHT", castbarpanel, -2, 2)
 
@@ -57,30 +71,39 @@ local function placeCastbar(unit)
 
     if C["unitframes"].cbicons == true then
         if unit == "player" then
-            castbar.button:Point("LEFT", -40, 0)
+            castbar.button:ClearAllPoints()
+            castbar.button:Point("RIGHT", castbar, "LEFT", -10, 0)
         elseif unit == "target" then
-            castbar.button:Point("RIGHT", 40, 0)
+            castbar.button:ClearAllPoints()
+            castbar.button:Point("LEFT", castbar, "RIGHT", 10, 0)
+        elseif unit == "focus" then
+            castbar.button:ClearAllPoints()
+            castbar.button:Point("BOTTOM", castbar, "TOP", 0, 10)
+            castbar.button:Size(50)
+            castbar.button:CreateShadow("Default")
+            
+            castbar.icon:Point("TOPLEFT", castbar.button, 2, -2)
+            castbar.icon:Point("BOTTOMRIGHT", castbar.button, -2, 2)
+            castbar.icon:SetTexCoord(0.08, 0.92, 0.08, .92)
+        elseif unit == "focustarget" then
+            castbar.button:Size(26)
+            castbar.button:CreateShadow("Default")
+            castbar.button:Point("LEFT", castbar, "RIGHT", 10, 0)
         end
     end
     
     -- cast bar latency
     local normTex = C["media"].normTex;
-    if C["unitframes"].cblatency == true then
+    if C["unitframes"].cblatency == true and (unit == "player" or unit == "target") then
         castbar.safezone = castbar:CreateTexture(nil, "ARTWORK")
         castbar.safezone:SetTexture(normTex)
         castbar.safezone:SetVertexColor(0.69, 0.31, 0.31, 0.75)
         castbar.SafeZone = castbar.safezone
     end
-
-    if (unit == "player") then
-        TukuiPlayerCastBar.Castbar = castbar    
-        TukuiPlayerCastBar.Castbar.Time = castbar.time
-        TukuiPlayerCastBar.Castbar.Icon = castbar.icon
-    else
-        TukuiTargetCastBar.Castbar = castbar
-        TukuiTargetCastBar.Castbar.Time = castbar.time
-        TukuiTargetCastBar.Castbar.Icon = castbar.icon
-    end
+    
+    castbar.Castbar = castbar    
+    castbar.Castbar.Time = castbar.time
+    castbar.Castbar.Icon = castbar.icon
 end
 
 
@@ -92,4 +115,14 @@ end
 if (config.separatetarget) then
     placeCastbar("target")
     table.insert(T.MoverFrames, TukuiTargetCastBar_PanelAnchor)
+end
+
+if (config.separatefocus) then
+    placeCastbar("focus")
+    table.insert(T.MoverFrames, TukuiFocusCastBar_PanelAnchor)
+end
+
+if (config.separatefocustarget) then
+    placeCastbar("focustarget")
+    table.insert(T.MoverFrames, TukuiFocusTargetCastBar_PanelAnchor)
 end
