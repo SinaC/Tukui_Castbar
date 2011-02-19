@@ -23,6 +23,9 @@ local function placeCastbar(unit)
         castbar = TukuiFocusCastBar
     elseif (unit == "focustarget") then
         castbar = TukuiFocusTargetCastBar
+    else
+        print("Tukui_Castbar: Cannot place castbar for unit: "..unit)
+        return
     end
 
     local castbarpanel = CreateFrame("Frame", castbar:GetName().."_Panel", castbar)
