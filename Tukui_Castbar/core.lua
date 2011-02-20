@@ -125,7 +125,7 @@ if (config.separatefocus) then
     table.insert(T.MoverFrames, TukuiFocusCastBar_PanelAnchor)
 end
 
-if (config.separatefocustarget) then
+if (config.separatefocustarget and C["showfocustarget"]) then
     placeCastbar("focustarget")
     table.insert(T.MoverFrames, TukuiFocusTargetCastBar_PanelAnchor)
 end
