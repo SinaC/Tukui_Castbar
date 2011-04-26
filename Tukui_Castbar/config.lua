@@ -6,6 +6,7 @@ ns.config={
     ["separatefocus"] = true, -- separate focus castbar
     ["separatefocustarget"]  = true, -- separate focustarget castbar
     player = {
+--test
         ["width"] = 250, -- width of player castbar
         ["height"] = 21, -- height of player castbar
     },

@@ -3,7 +3,7 @@
 
 local T, C, L = unpack(Tukui) -- Import: T - functions, constants, variables; C - config; L - locales
 
-if ( TukuiUF ~= true and ( C == nil or C["unitframes"] == nil or not C["unitframes"]["enable"] ) ) then return; end
+if ( C == nil or C["unitframes"] == nil or not C["unitframes"]["enable"] ) then return; end
 
 if (C["unitframes"].unitcastbar ~= true) then return; end
 
@@ -63,12 +63,12 @@ local function placeCastbar(unit)
     castbar:Point("TOPLEFT", castbarpanel, 2, -2)
     castbar:Point("BOTTOMRIGHT", castbarpanel, -2, 2)
 
-    castbar.time = TukuiDB.SetFontString(castbar, font1, 12)
+    castbar.time = T.SetFontString(castbar, font1, 12)
     castbar.time:Point("RIGHT", castbarpanel, "RIGHT", -4, 0)
     castbar.time:SetTextColor(0.84, 0.75, 0.65)
     castbar.time:SetJustifyH("RIGHT")
 
-    castbar.Text = TukuiDB.SetFontString(castbar, font1, 12)
+    castbar.Text = T.SetFontString(castbar, font1, 12)
     castbar.Text:Point("LEFT", castbarpanel, "LEFT", 4, 0)
     castbar.Text:SetTextColor(0.84, 0.75, 0.65)
 

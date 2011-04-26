@@ -1,4 +1,4 @@
-## Interface: 40000
+## Interface: 40100
 ## Title: |cffC495DDTukui|r |cffffd200Castbar|r
 ## Notes: Moves the castbars into separate panels
 ## Author: Krevlorne @ EU-Ulduar
